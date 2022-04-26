@@ -1,0 +1,144 @@
+<html>
+
+<head>
+    <title></title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+    <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+    /*Session Variable.*/
+    var session = localStorage.usernameSession;
+    if (session == undefined) {
+        window.location.href = "Login.html";
+    }
+  </script>
+<body>
+    <nav>
+        <div class="nav-wrapper blue darken-3">
+            <a href="#" class="brand-logo"></a>
+        </div>
+    </nav>
+    <br /><br />
+    <div class="valign-wrapper row login-box">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form>
+                <div class="card-content">
+                    <span class="card-title"> Transaccion: Consulta de Saldo </span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="atmId"> Id Cajero (*) </label>
+                            <input type="number" class="validate" name="atmId" id="atmId" />
+                        </div>
+
+                        <div class="input-field col s12">
+                            <label for="userName"> Nombre de Usuario (*) </label>
+                            <input type="text" class="validate" name="userName" id="userName" />
+                        </div>
+
+                        <div class="input-field col s12">
+                            <label for="password"> Password (*) </label>
+                            <input type="password" class="validate" name="password" id="password" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-action center-align">
+                    <button type="button" class="waves-effect waves-light btn red" id="btnOk">
+                        <i class="material-icons right">check</i> Consultar Saldo </button>
+                    <button type="button" class="waves-effect waves-light btn blue" id="btnBack">
+                        <i class="material-icons right">arrow_back</i> Regresar </button>
+                    <br /><br />
+                    <div id="lblMessage"></div>
+                    <div id="lblMessage1"></div>
+                    <div id="lblMessage2"></div>
+                    <div id="lblMessage3"></div>
+                    <div id="lblMessage4"></div>
+                    <div id="lblMessage5"></div>
+                    <div id="lblMessage6"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnOk').click(function () {
+            var atmId = $("#atmId").val();
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            var varUrl = 'http://localhost:8090/api/transaction/balanceInquiry';
+
+            $('#lblMessage').html("");
+            $('#lblMessage1').html("");
+            $('#lblMessage2').html("");
+            $('#lblMessage3').html("");
+            $('#lblMessage4').html("");
+            $('#lblMessage5').html("");
+            $('#lblMessage6').html("");
+
+            function clearFields() {
+                var atmId = $("#atmId").val("");
+                var userName = $("#userName").val("");
+                var password = $("#password").val("");
+            }
+
+            var transactionBalanceInquiry = {
+                atmId: atmId,
+                userName: userName,
+                password: password
+            }
+
+            $.ajax({
+                url: varUrl,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(transactionBalanceInquiry),
+                dataType: 'json',
+                success: function (data) {
+                    var output = data.message;
+
+                    if (data.bankAccount != null) {
+                        var output1 = "<b> Numero DPI: </b>" + data.bankAccount.dpi;
+                        var output2 = "<b> Numero de Cuenta: </b>" + data.bankAccount.bankAccountId;
+                        var output3 = "<b> Id Banco: </b>" + data.bankAccount.bankId;
+                        var output4 = "<b> Saldo Q: </b>" + data.bankAccount.balance;
+                        var output5 = "<b> Saldo $: </b>" + data.bankAccount.balance / 8;
+                        var output6 = "<b> Saldo €: </b>" + data.bankAccount.balance / 10;
+                        clearFields();
+                        $('#lblMessage1').html(output1);
+                        $('#lblMessage2').html(output2);
+                        $('#lblMessage3').html(output3);
+                        $('#lblMessage4').html(output4);
+                        $('#lblMessage5').html(output5);
+                        $('#lblMessage6').html(output6);
+                    } else {
+                        clearFields();
+                        $('#lblMessage').html(output);
+                    }
+                },
+                error: function (err) {
+                    var output = "Ha ocurrido un error.";
+                    console.log(err);
+                    clearFields();
+                    $('#lblMessage1').html(output);
+                }
+            });
+        })
+        $("#btnBack").click(function () {
+            window.location.href = "Home.html";
+        });
+
+    });
+</script>
+
+</html>

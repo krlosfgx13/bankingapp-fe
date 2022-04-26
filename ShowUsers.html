@@ -1,0 +1,113 @@
+<html>
+
+<head>
+  <title></title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+  <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+  /*Session Variable.*/
+  // var session = localStorage.usernameSession;
+  // if (session == undefined) {
+  //     window.location.href = "Login.html";
+  // }
+</script>
+<body>
+  <nav>
+    <div class="nav-wrapper blue darken-3">
+      <a href="#" class="brand-logo"></a>
+    </div>
+  </nav>
+  <br /><br />
+
+  <div class="container" style="width: 88%;height: 100%;max-width: 100%;margin: auto;">
+    <div class="row" style="width: 100%;height: 100%;">
+      <div class="flexbox">
+        <div class="col s12 center-align" id="extra-pic-container">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>DPI</th>
+                <th>Nombre de Usuario</th>
+                <th>Primer Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Direccion </th>
+                <th>Celular</th>
+                <th>Telefono Casa</th>
+                <th>Correo</th>
+                <th>Fecha Creacion</th>
+              </tr>
+            </thead>
+            <tbody id="usersTable">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br/><br />
+      <div class="card-action center-align">
+        <br/><br/>
+        <button type="button" class="waves-effect waves-light btn red" id="btnOk">
+          <i class="material-icons right">check</i> Mostrar Usuarios </button>
+        <button type="button" class="waves-effect waves-light btn blue" id="btnBack">
+          <i class="material-icons right">arrow_back</i> Regresar </button>
+        <br /><br />
+        <div id="lblMessage"></div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#btnOk').click(function () {
+      var varUrl = 'http://localhost:8090/api/userdata';
+      $.ajax({
+        url: varUrl,
+        method: 'GET',
+        contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+          var table = "";
+          var auxEmailAddress = "";
+          
+          for (var i = 0; i < data.listOfUsers.length; i++) {
+            auxEmailAddress = data.listOfUsers[i].emailAddress == null ? "" : data.listOfUsers[i].emailAddress;
+            table += "<tr>";
+            table += "<td>" + data.listOfUsers[i].dpi + "</td>";
+            table += "<td>" + data.listOfUsers[i].userName + "</td>";
+            table += "<td>" + data.listOfUsers[i].firstName + "</td>";
+            table += "<td>" + data.listOfUsers[i].lastName + "</td>";
+            table += "<td>" + data.listOfUsers[i].address + "</td>";
+            table += "<td>" + data.listOfUsers[i].phoneNumber + "</td>";
+            table += "<td>" + data.listOfUsers[i].homePhoneNumber + "</td>";
+            table += "<td>" + auxEmailAddress + "</td>";
+            table += "<td>" + new Date(data.listOfUsers[i].creationDate) + "</td>"; 
+            table += "</tr>";
+          }
+          table += "<td>" + "</td>";
+          $('#usersTable').html(table);
+        },
+        error: function (err) {
+          console.log(err);
+          var output = "Ha ocurrido un error";
+          $('#lblMessage').html(output);
+        }
+      });
+    })
+
+    $("#btnBack").click(function () {
+            window.location.href = "Home.html";
+        });
+  });
+</script>
+
+</html>

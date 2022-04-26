@@ -1,0 +1,150 @@
+<html>
+
+<head>
+  <title></title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+  <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+  /*Session Variable.*/
+  var session = localStorage.usernameSession;
+  if (session == undefined) {
+      window.location.href = "Login.html";
+  }
+</script>
+<body>
+  <nav>
+    <div class="nav-wrapper blue darken-3">
+      <a href="#" class="brand-logo"></a>
+    </div>
+  </nav>
+  <br /><br />
+  <div class="valign-wrapper row login-box">
+    <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+      <form>
+        <div class="card-content">
+          <span class="card-title"> Crear Banco </span>
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="name"> Nombre (*) </label>
+              <input type="text" class="validate" name="name" id="name" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="address"> Direccion (*) </label>
+              <input type="text" class="validate" name="address" id="address" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="cashAvailable"> Efectivo (*) </label>
+              <input type="number" class="validate" name="cashAvailable" id="cashAvailable" />
+            </div>
+
+            <p>
+              <input type="checkbox" id="currencyQuetzal" />
+              <label for="currencyQuetzal">Quetzal</label>
+            </p>
+            <p>
+              <input type="checkbox" id="currencyDollar" />
+              <label for="currencyDollar">Dolar</label>
+            </p>
+            <p>
+              <input type="checkbox" id="currencyEuro" />
+              <label for="currencyEuro">Euro</label>
+            </p>
+
+          </div>
+        </div>
+
+        <div class="card-action center-align">
+          <button type="button" class="waves-effect waves-light btn red" id="btnOk">
+            <i class="material-icons right">check</i> Crear Banco </button>
+          <button type="button" class="waves-effect waves-light btn blue" id="btnBack">
+            <i class="material-icons right">arrow_back</i> Regresar </button>
+          <br /><br />
+          <div id="lblMessage"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#btnOk').click(function () {
+      var name = $("#name").val();
+      var address = $("#address").val();
+      var cashAvailable = $("#cashAvailable").val();
+      var listOfCurrencies = [];
+      var varUrl = 'http://localhost:8090/api/bank';
+
+      const CURRENCY_Q = 1;
+      const CURRENCY_$ = 2;
+      const CURRENCY_E = 3;
+      const cbQuetzal = document.getElementById('currencyQuetzal');
+      console.log(cbQuetzal.checked);
+      const cbDollar = document.getElementById('currencyDollar');
+      console.log(cbDollar.checked);
+      const cbEuro = document.getElementById('currencyEuro');
+      console.log(cbEuro.checked);
+
+      if (cbQuetzal.checked) {
+        listOfCurrencies.push(CURRENCY_Q);
+      }
+      if (cbDollar.checked) {
+        listOfCurrencies.push(CURRENCY_$);
+      }
+      if (cbEuro.checked) {
+        listOfCurrencies.push(CURRENCY_E);
+      }
+
+      function clearFields() {
+        var name = $("#name").val("");
+        var address = $("#address").val("");
+        var cashAvailable = $("#cashAvailable").val("");
+        document.getElementById("currencyQuetzal").checked = false;
+        document.getElementById("currencyDollar").checked = false;
+        document.getElementById("currencyEuro").checked = false;
+      }
+
+      var bank = {
+        name: name,
+        address: address,
+        cashAvailable: cashAvailable,
+        listOfCurrencies: listOfCurrencies
+      }
+
+      $.ajax({
+        url: varUrl,
+        method: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(bank),
+        dataType: 'json',
+        success: function (data) { //response data?
+          var output = data.message;
+          clearFields();
+          $('#lblMessage').html(output);
+        },
+        error: function (err) {
+          var output = "Ha ocurrido un error";
+          clearFields();
+          $('#lblMessage').html(output);
+        }
+      });
+    })
+    $("#btnBack").click(function () {
+      window.location.href = "Home.html";
+    });
+  });
+</script>
+
+</html>

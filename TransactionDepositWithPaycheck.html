@@ -1,0 +1,153 @@
+<html>
+
+<head>
+  <title></title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+  <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+  /*Session Variable.*/
+  var session = localStorage.usernameSession;
+  if (session == undefined) {
+      window.location.href = "SignIn.html";
+  }
+</script>
+<body>
+  <nav>
+    <div class="nav-wrapper blue darken-3">
+      <a href="#" class="brand-logo"></a>
+    </div>
+  </nav>
+  <br /><br />
+  <div class="valign-wrapper row login-box">
+    <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+      <form>
+        <div class="card-content">
+          <span class="card-title"> Transaccion: Deposito con Cheque </span>
+          <div class="row">
+
+            <div class="input-field col s12">
+              <label for="atmId"> Id Cajero (*) </label>
+              <input type="number" class="validate" name="atmId" id="atmId" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="userName"> Nombre de Usuario (*) </label>
+              <input type="text" class="validate" name="userName" id="userName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="password"> Password (*) </label>
+              <input type="password" class="validate" name="password" id="password" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="bankName"> Nombre del Banco Emisor (*) </label>
+              <input type="text" class="validate" name="bankName" id="bankName" />
+            </div>
+
+            <div class="input-field col s12">
+              <select id="currencyId">
+                <option value="0" disabled selected>Seleccionar Moneda</option>
+                <option value="1"> QUETZAL Q </option>
+                <option value="2"> DOLAR $ </option>
+                <option value="3"> EURO € </option>
+              </select>
+            </div>
+
+            <div class="input-field col s12">
+              <label for="amount"> Cantidad (*) </label>
+              <input type="number" class="validate" name="amount" id="amount" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="bankAccountId"> Numero de Cuenta (*) </label>
+              <input type="number" class="validate" name="bankAccountId" id="bankAccountId" />
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-action center-align">
+          <button type="button" class="waves-effect waves-light btn red" id="btnOk">
+            <i class="material-icons right">check</i> Realizar Deposito </button>
+          <button type="button" class="waves-effect waves-light btn blue" id="btnBack">
+            <i class="material-icons right">arrow_back</i> Regresar </button>
+          <br /><br />
+          <div id="lblMessage"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('select').material_select();
+  });
+
+  $(document).ready(function () {
+    $('#btnOk').click(function () {
+      var atmId = $("#atmId").val();
+      var userName = $("#userName").val();
+      var password = $("#password").val();
+      var bankName = $("#bankName").val();
+      var currencyId = $("#currencyId").val();
+      var amount = $("#amount").val();
+      var bankAccountId = $("#bankAccountId").val();
+      var varUrl = 'http://localhost:8090/api/transaction/depositMoneyWithPaycheck';
+
+      function clearFields() {
+        var atmId = $("#atmId").val("");
+        var userName = $("#userName").val("");
+        var password = $("#password").val("");
+        var bankName = $("#bankName").val("");
+        var currencyId = $("#currencyId").val("");
+        var amount = $("#amount").val("");
+        var bankAccountId = $("#bankAccountId").val("");
+      }
+
+      var transactionDepositWithPaycheck = {
+        atmId: atmId,
+        userName: userName,
+        password: password,
+        bankName: bankName,
+        currencyId: currencyId,
+        amount: amount,
+        bankAccountId: bankAccountId
+      }
+
+      $.ajax({
+        url: varUrl,
+        method: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(transactionDepositWithPaycheck),
+        dataType: 'json',
+        success: function (data) {
+          var output = data.message;
+          clearFields();
+          $('#lblMessage').html(output);
+        },
+        error: function (err) {
+          var output = "Ha ocurrido un error";
+          clearFields();
+          $('#lblMessage').html(output);
+        }
+      });
+    })
+    $("#btnBack").click(function () {
+      window.location.href = "Home.html";
+    });
+  });
+</script>
+
+</html>

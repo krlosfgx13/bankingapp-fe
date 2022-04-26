@@ -1,0 +1,173 @@
+<html>
+
+<head>
+  <title></title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+  <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+  /*Session Variable.*/
+  // var session = localStorage.usernameSession;
+  // if (session == undefined) {
+  //     window.location.href = "SignIn.html";
+  // }
+</script>
+
+<body>
+  <nav>
+    <div class="nav-wrapper blue darken-3">
+      <a href="#" class="brand-logo"></a>
+    </div>
+  </nav>
+  <br /><br />
+  <div class="valign-wrapper row login-box">
+    <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+      <form>
+        <div class="card-content">
+          <span class="card-title"> Crear Persona </span>
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="dpi"> DPI (*) </label>
+              <input type="number" class="validate" name="dpi" id="dpi" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="firstName"> Primer Nombre (*) </label>
+              <input type="text" class="validate" name="firstName" id="firstName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="secondName"> Segundo Nombre </label>
+              <input type="text" class="validate" name="secondName" id="secondName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="thirdName"> Tercer Nombre </label>
+              <input type="text" class="validate" name="thirdName" id="thirdName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="firstLastName"> Primer Apellido (*) </label>
+              <input type="text" class="validate" name="firstLastName" id="firstLastName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="secondLastName"> Segundo Apellido </label>
+              <input type="text" class="validate" name="secondLastName" id="secondLastName" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="address"> Direccion (*) </label>
+              <input type="text" class="validate" name="address" id="address" />
+            </div>
+
+
+            <div class="input-field col s12">
+              <label for="phoneNumber"> Telefono Movil </label>
+              <input type="number" class="validate" name="phoneNumber" id="phoneNumber" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="homePhoneNumber"> Telefono Residencial </label>
+              <input type="number" class="validate" name="homePhoneNumber" id="homePhoneNumber" />
+            </div>
+
+            <div class="input-field col s12">
+              <label for="emailAddress"> Correo Electronico </label>
+              <input type="email" class="validate" name="emailAddress" id="emailAddress" />
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="card-action center-align">
+          <button type="button" class="waves-effect waves-light btn red" id="btnOk">
+            <i class="material-icons right">check</i> Crear Persona </button>
+          <button type="button" class="waves-effect waves-light btn blue" id="btnBack">
+            <i class="material-icons right">arrow_back</i> Regresar </button>
+          <br /><br />
+          <div id="lblMessage"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#btnOk').click(function () {
+      var dpi = $("#dpi").val();
+      var firstName = $("#firstName").val();
+      var secondName = $("#secondName").val();
+      var thirdName = $("#thirdName").val();
+      var firstLastName = $("#firstLastName").val();
+      var secondLastName = $("#secondLastName").val();
+      var address = $("#address").val();
+      var phoneNumber = $("#phoneNumber").val();
+      var homePhoneNumber = $("#homePhoneNumber").val();
+      var emailAddress = $("#emailAddress").val();
+      var varUrl = 'http://localhost:8090/api/person';
+
+      function clearFields() {
+        var dpi = $("#dpi").val("");
+        var firstName = $("#firstName").val("");
+        var secondName = $("#secondName").val("");
+        var thirdName = $("#thirdName").val("");
+        var firstLastName = $("#firstLastName").val("");
+        var secondLastName = $("#secondLastName").val("");
+        var address = $("#address").val("");
+        var phoneNumber = $("#phoneNumber").val("");
+        var homePhoneNumber = $("#homePhoneNumber").val("");
+        var emailAddress = $("#emailAddress").val("");
+      }
+
+      var person = {
+        dpi: dpi,
+        firstName: firstName,
+        secondName: secondName,
+        thirdName: thirdName,
+        firstLastName: firstLastName,
+        secondLastName: secondLastName,
+        address: address,
+        phoneNumber: phoneNumber,
+        homePhoneNumber: homePhoneNumber,
+        emailAddress: emailAddress
+      }
+
+      $.ajax({
+        url: varUrl,
+        method: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(person),
+        dataType: 'json',
+        success: function (data) { //response data?
+          var output = data.message;
+          clearFields();
+          $('#lblMessage').html(output);
+        },
+        error: function (err) {
+          var output = "Ha ocurrido un error";
+          clearFields();
+          $('#lblMessage').html(output);
+        }
+      });
+    })
+
+
+    $("#btnBack").click(function () {
+      window.location.href = "Home.html";
+    });
+  });
+</script>
+
+</html>

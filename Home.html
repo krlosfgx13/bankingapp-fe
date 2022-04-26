@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+</head>
+<script type="text/javascript">
+    /*Session Variable.*/
+    var session = localStorage.usernameSession;
+    if (session == undefined) {
+        window.location.href = "Login.html";
+    }
+</script>
+
+<body>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="Materialize/js/materialize.min.js"></script>
+    <div class="row">
+        <form class="col s12">
+            <nav>
+                <div class="nav-wrapper blue darken-3">
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <!--<li><a href="Login.html">Cerrar Sesion</a></li>-->
+                        <li><a class="btn-floating purple lighten-1" id="logOut"><i class="material-icons">power_settings_new</i></a></li>
+                    </ul>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i
+                            class="material-icons">view_headline</i></a>
+
+
+                    <ul class="side-nav blue darken-3" id="mobile-demo">
+                        <li class="sidenav-header blue darken-3">
+                            <div class="row">
+                                <div class="col s4">
+                                    <!--<img src="Materialize/photos/logo.png" width="250px" height="400px" alt="" class="circle responsive-img valign profile-image">-->
+                                </div>
+                                <div class="col s8">
+                                    <a class="" href="#" data-activates=""> <i class=""></i></a>
+                                    <ul id="" class="">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">person_add</i> Personas <i
+                                            class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="Person.html"><i
+                                                        class="material-icons"> </i>Crear Persona</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">supervisor_account</i> Usuarios <i
+                                            class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="User.html"><i
+                                                        class="material-icons"></i>Crear Usuario</a></li>
+                                            <li><a class="waves-effect waves-blue" href="ShowUsers.html"><i
+                                                        class="material-icons"></i>Listado de Usuarios</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">account_circle</i> Cuentas Bancarias <i
+                                            class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="BankAccount.html"><i
+                                                        class="material-icons"></i>Crear Cuenta Bancaria</a></li>
+                                            <li><a class="waves-effect waves-blue" href="ShowBankAccounts.html"><i
+                                                        class="material-icons"></i>Listado de Cuentas</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">account_balance</i> Bancos
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="Bank.html"><i
+                                                        class="material-icons"></i>Crear Banco</a></li>
+                                            <li><a class="waves-effect waves-blue" href="ShowBanks.html"><i
+                                                        class="material-icons"></i>Listado de Bancos</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">euro_symbol</i> Monedas de Bancos
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="ShowBankCurrencies.html"><i
+                                                        class="material-icons"></i>Listado de Monedas</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">local_atm</i> Cajeros
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="Atm.html"><i
+                                                        class="material-icons"></i>Crear Cajero</a></li>
+                                            <li><a class="waves-effect waves-blue" href="ShowAtms.html"><i
+                                                        class="material-icons"></i>Listado de Cajeros</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">payment</i> Transacciones de Usuario
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="TransactionDepositMoney.html"><i
+                                                        class="material-icons"></i>Deposito Monetario</a></li>
+                                            <li><a class="waves-effect waves-blue" href="TransactionBalanceInquiry.html"><i
+                                                        class="material-icons"></i>Consulta de Saldos</a></li>
+                                                        <li><a class="waves-effect waves-blue" href="TransactionWithdrawMoney.html"><i
+                                                            class="material-icons"></i>Retiro Monetario</a></li>
+                                                <li><a class="waves-effect waves-blue" href="TransactionDepositWithPaycheck.html"><i
+                                                            class="material-icons"></i>Deposito con Cheque</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">payment</i> Transacciones de Operador
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="TransactionMonetaryInvestment.html"><i
+                                                        class="material-icons"></i>Inversion Monetaria</a></li>
+                                            <li><a class="waves-effect waves-blue" href="TransactionRechargeAtm.html"><i
+                                                        class="material-icons"></i>Recargar Cajero</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="white">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    <a class="collapsible-header waves-effect waves-blue">
+                                        <i class="material-icons">history</i> Historial de Transacciones
+                                        <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li><a class="waves-effect waves-blue" href="TransactionLog.html"><i
+                                                        class="material-icons"></i>Historial</a></li>
+                                            <li>
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidenav-footer blue darken-3">
+                            <div class="row">
+                                <div class="social-icons">
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-linkedin-square"></a></i>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-facebook-official"></a></i>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-twitter"></a></i>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-google-plus"></a></i>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-pinterest"></a></i>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="#"><i class="fa fa-lg fa-youtube"></a></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true // Choose whether you can drag to open on touch screens
+        }
+        );
+        // START OPEN
+        $('.button-collapse').sideNav('show');
+    });
+
+    $('.carousel.carousel-slider').carousel({
+        fullWidth: false
+    });
+    autoplay();
+
+    function autoplay() {
+        $('.carousel').carousel('next');
+        setTimeout(autoplay, 4000);
+    }
+
+    $("#logOut").click(function () {
+        localStorage.removeItem("usernameSession");
+        window.location.href = "Login.html";
+    });
+
+</script>
+
+</html>
